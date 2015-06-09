@@ -1,8 +1,0 @@
-v2
-cacheable='0
-regex='"stream_h264_url":"(http:.+?)"
-scrape
-url=v1
-regex='\\
-replace url '
-play

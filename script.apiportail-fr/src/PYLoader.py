@@ -7,7 +7,7 @@ import xbmc, xbmcgui
 import base64
 import time
 
-addon = xbmcaddon.Addon(id='script.apiportail')
+addon = xbmcaddon.Addon(id='script.apiportail-fr')
 
 try: Emulating = xbmcgui.Emulating
 except: Emulating = False

@@ -113,7 +113,7 @@ class CPlayer(xbmc.Player):
                                               
         urlopener = CURLLoader()
         result = urlopener.urlopen(URL, mediaitem)
-        addon = xbmcaddon.Addon(id='script.apiportail')
+        addon = xbmcaddon.Addon(id='script.apiportail-fr')
         #Pb de latences sur ce code voir si indispensable
 #        if (result["code"] != 0) and (addon.getSetting("pyload_enabled")=="true"):
 #            try:

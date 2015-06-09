@@ -43,7 +43,7 @@ PAL60_16x9 = 9      #(720x480, 16:9, pixels are 5760:4739)
 #############################################################################
 import os, xbmcaddon
 
-addon = xbmcaddon.Addon(id='script.apiportail')
+addon = xbmcaddon.Addon(id='script.apiportail-fr')
 RootDir = addon.getAddonInfo('path')
 
 if RootDir[-1]==';': RootDir=RootDir[0:-1]

@@ -12,7 +12,7 @@ __url__ = ""
 __credits__ = ""
 __version__ = "1.0"
 
-addon = xbmcaddon.Addon(id='script.apiportail')
+addon = xbmcaddon.Addon(id='script.apiportail-fr')
 RootDir = addon.getAddonInfo('path')
 sys.path.append(os.path.join(RootDir.replace(";",""),'src'))
 

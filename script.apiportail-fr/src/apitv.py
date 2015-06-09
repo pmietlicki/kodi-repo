@@ -11,7 +11,7 @@ import thread
 import HTMLParser
 
 
-addon = xbmcaddon.Addon(id='script.apiportail')
+addon = xbmcaddon.Addon(id='script.apiportail-fr')
 root_path = addon.getAddonInfo('path')
 sys.path.append(os.path.join(root_path.replace(";",""),'src'))
 
@@ -2136,7 +2136,7 @@ class MainWindow(xbmcgui.WindowXML):
                     dialog = xbmcgui.Dialog()
                     dialog.ok("Erreur", "Test vitesse telechargement echoue.")
             if (choice != -1) and (choice == 2):
-		addon = xbmcaddon.Addon(id='script.apiportail')
+		addon = xbmcaddon.Addon(id='script.apiportail-fr')
 		if addon.getSetting("pyload_enabled")=="true":
              	  try:
                     downloader = PYLoader()

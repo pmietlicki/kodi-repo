@@ -1,0 +1,37 @@
+﻿<fonts>
+			<font>
+			<name>windowTitlePrufa</name>
+			<filename>NaviL.ttf</filename>
+			<size>34</size>
+		</font>
+		<font>
+			<name>windowTitleKlukka</name>
+			<filename>NaviR.ttf</filename>
+			<size>52</size>
+		</font>
+		<font>
+			<name>listiSmaller</name>
+			<filename>NaviR.ttf</filename>
+			<size>16</size>
+		</font>
+		<font>
+			<name>windowTitleLight</name>
+			<filename>NaviL.ttf</filename>
+			<size>52</size>
+		</font>
+		<font>
+			<name>listi</name>
+			<filename>NaviR.ttf</filename>
+			<size>22</size>
+		</font>
+		<font>
+			<name>listiSmall</name>
+			<filename>NaviR.ttf</filename>
+			<size>20</size>
+		</font>
+		<font>
+			<name>listiBig</name>
+			<filename>NaviR.ttf</filename>
+			<size>24</size>
+		</font>
+</fonts>

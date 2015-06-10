@@ -99,7 +99,7 @@ class CPlayer(xbmc.Player):
                 return {"code":1,"data":"no valid items found"}
         
         if not (xbmc.Player().isPlaying()):
-            return {"code":1,"erreur":"impossible de lire cet item"} 
+            return {"code":1,"data":"no valid items found"} 
 
         return {"code":0}
 
@@ -113,7 +113,7 @@ class CPlayer(xbmc.Player):
                                               
         urlopener = CURLLoader()
         result = urlopener.urlopen(URL, mediaitem)
-        addon = xbmcaddon.Addon(id='script.apiportail-fr')
+        addon = xbmcaddon.Addon(id='script.apiportal')
         #Pb de latences sur ce code voir si indispensable
 #        if (result["code"] != 0) and (addon.getSetting("pyload_enabled")=="true"):
 #            try:
@@ -149,7 +149,7 @@ class CPlayer(xbmc.Player):
         except AttributeError:
             URL = URL
         
-        SetInfoText("Chargement...... ", setlock=True)
+        SetInfoText("Loading...... ", setlock=True)
 
         self.pls.clear() #clear the playlist
                 
@@ -176,7 +176,7 @@ class CPlayer(xbmc.Player):
                 self.play_media(URL)
         
         if not (xbmc.Player().isPlaying()):
-            return {"code":1,"erreur":"impossible de lire cet item"} 
+            return {"code":1,"error":"unable to play this item"} 
             
         return {"code":0}
 

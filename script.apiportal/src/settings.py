@@ -43,7 +43,7 @@ PAL60_16x9 = 9      #(720x480, 16:9, pixels are 5760:4739)
 #############################################################################
 import os, xbmcaddon
 
-addon = xbmcaddon.Addon(id='script.apiportail-fr')
+addon = xbmcaddon.Addon(id='script.apiportal')
 RootDir = addon.getAddonInfo('path')
 
 if RootDir[-1]==';': RootDir=RootDir[0:-1]
@@ -110,9 +110,9 @@ downloads_complete='downloads.plx'
 parent_list='blacklist.plx'
 history_list='history.plx'
 plxVersion = '8'
-home_URL_old='http://apitv.ile.nc/accueil.txt'
-home_URL='http://apitv.ile.nc/accueil.txt'
-home_URL_mirror='http://apitv.ile.nc/accueil.txt'
+home_URL_old='http://apitv.pascal-mietlicki.fr/home.txt'
+home_URL='http://apitv.pascal-mietlicki.fr/home.txt'
+home_URL_mirror='http://apitv.pascal-mietlicki.fr/home.txt'
 background_image1 = 'background1.jpg'
 background_image2 = 'background2.png'
 searchhistory_file = 'search.dat'

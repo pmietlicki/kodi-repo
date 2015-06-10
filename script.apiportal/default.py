@@ -6,13 +6,13 @@ import shutil
 import sys
 
 # Script constants
-__scriptname__ = "aPiPortail"
+__scriptname__ = "aPiPortal"
 __author__ = "aPiTV"
 __url__ = ""
 __credits__ = ""
 __version__ = "1.0"
 
-addon = xbmcaddon.Addon(id='script.apiportail-fr')
+addon = xbmcaddon.Addon(id='script.apiportal')
 RootDir = addon.getAddonInfo('path')
 sys.path.append(os.path.join(RootDir.replace(";",""),'src'))
 
@@ -163,11 +163,11 @@ platform = get_system_platform()
 #    #save updated version.
 #    onSaveVersion(newversion)
 #    dialog = xbmcgui.Dialog()
-#    dialog.ok("Message", "aPiTV a ete mis a jour.")
+#    dialog.ok("Message", "aPiTV has been updated.")
 
 
 #############################################################################
-#Start aPiPortail
+#Start aPiPortal
 #############################################################################
 import apitv
 win = apitv.MainWindow("skin.xml", addon.getAddonInfo('path'))

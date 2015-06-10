@@ -60,7 +60,7 @@ class CDialogBrowse(xbmcgui.WindowXMLDialog):
             if self.getFocus() == self.getControl(BUTTON_OK):
                 if os.path.exists(self.dir) == False:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Dossier destination inexistant")
+                    dialog.ok("Erreur", "Destination directory does not exist")
                 else:
                     self.state = 0 #success
                     self.close() #exit
@@ -79,7 +79,7 @@ class CDialogBrowse(xbmcgui.WindowXMLDialog):
                         filename = fn[pos+1:]
                         if len(filename) > 42:
                             dialog = xbmcgui.Dialog()
-                            dialog.ok("Erreur", "Nom fichier superieur a 42 caracteres.")
+                            dialog.ok("Erreur", "Filename exceeds 42 characters.")
                         else:
                             self.filename = filename
                             

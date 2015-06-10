@@ -11,7 +11,7 @@ import thread
 import HTMLParser
 
 
-addon = xbmcaddon.Addon(id='script.apiportail-fr')
+addon = xbmcaddon.Addon(id='script.apiportal')
 root_path = addon.getAddonInfo('path')
 sys.path.append(os.path.join(root_path.replace(";",""),'src'))
 
@@ -178,8 +178,8 @@ class MainWindow(xbmcgui.WindowXML):
                     pos = 3
                 else:
                     pos = 4
-                self.list3.getListItem(pos).setLabel("Se deconnecter")
-                self.version.setLabel('version: '+ Version + '.' + SubVersion + " (connecte)")
+                self.list3.getListItem(pos).setLabel("Sign out")
+                self.version.setLabel('version: '+ Version + '.' + SubVersion + " (signed in)")
                                   
             #thumb update task
             self.bkgndloadertask = CBackgroundLoader(window=self)
@@ -211,13 +211,13 @@ class MainWindow(xbmcgui.WindowXML):
             if result != 0:
                 #failed to load page startup page from both main and backup server
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Erreur", "Veuillez verifier votre connexion Internet!")
+                dialog.ok("Error", "Please check your internet connection!")
                 return 
                 
             #check the download queue    
             if self.downloadqueue.size() > 0:
                 dialog = xbmcgui.Dialog()
-                if dialog.yesno("Message", "Liste telechargements non vide. Commencez a telecharger?") == True:
+                if dialog.yesno("Message", "Download queue not empty. Start download now ?") == True:
                     self.downloader.download_start() 
                 
             #end of function
@@ -252,7 +252,7 @@ class MainWindow(xbmcgui.WindowXML):
                 if (platform == 'xbox') and (pos == 3) or (pos == 4):
                     self.state_busy = 1
                     #self.setInfoText("Fermeture de aPiPortail...") 
-                    SetInfoText("Fermeture de aPiPortail...", setlock=True) 
+                    SetInfoText("Shutting down aPiPortal...", setlock=True) 
                     self.onSaveSettings()
                     self.bkgndloadertask.kill()
                     self.bkgndloadertask.join(10) #timeout after 10 seconds.
@@ -538,7 +538,7 @@ class MainWindow(xbmcgui.WindowXML):
             listcontrol.setVisible(0)
             self.list2tb.setVisible(0)
             
-            self.loading.setLabel("Patientez...")
+            self.loading.setLabel("Please wait...")
             self.loading.setVisible(1)
                         
             if reload == False:
@@ -569,10 +569,10 @@ class MainWindow(xbmcgui.WindowXML):
                 
                 if result == -1: #error
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Cette playlist necessite une version plus recente de aPiPortail")
+                    dialog.ok("Error", "This playlist requires a newer version of aPiPortal")
                 elif result == -2: #error
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Ne peut ouvrir le fichier (URL incorrect, page vide ou chargement trop long).")
+                    dialog.ok("Error", "Can not connect (incorrect URL, empty page or taking too long).")
                 
                 if result != 0: #failure
                     self.loading.setVisible(0)
@@ -584,14 +584,14 @@ class MainWindow(xbmcgui.WindowXML):
                 #return to default view
                 self.listview = 'default'
                 listentry = self.list3.getListItem(3)
-                listentry.setLabel("Vue: " + self.listview)                
+                listentry.setLabel("View: " + self.listview)                
             
             #succesful
 #the next line is for used for debugging only            
 #            playlist.save(RootDir + 'source.plx')
             
             #loading finished, display the list
-            self.loading.setLabel("Patientez......")
+            self.loading.setLabel("Please wait......")
             
             self.vieworder = 'ascending' #ascending by default
         
@@ -680,7 +680,7 @@ class MainWindow(xbmcgui.WindowXML):
             self.page = page
 
             listcontrol.setVisible(0)           
-            self.loading.setLabel("Patientez......")
+            self.loading.setLabel("Please wait......")
             self.loading.setVisible(1)
 
             if append == False:
@@ -723,18 +723,18 @@ class MainWindow(xbmcgui.WindowXML):
                             days_past = (today-entry_date).days
                             hours_past = (today-entry_date).seconds / 3600
                             if (size > 1) and (days_past == 0) and (hours_past < 24):
-                                label2 = 'Nouveau il y a ' + str(hours_past) + ' hrs'
+                                label2 = 'New ' + str(hours_past) + ' hrs ago'
                             elif days_past <= 10:
                                 if days_past == 0:
-                                    label2 = 'Nouveau Aujourd\'hui'
+                                    label2 = 'New Today'
                                 elif days_past == 1:
-                                    label2 = 'Nouveau Hier'
+                                    label2 = 'New Yesterday'
                                 else:
-                                    label2 = 'Nouveau il y a ' + str(days_past) + ' jours'
+                                    label2 = 'New ' + str(days_past) + ' days ago'
                             elif self.playlist.type != 'playlist':
                                 label2 = m.date[:10]
                         except:
-                            print "ERREUR: Playlist contient donnees invalides pour:  %d" %(n+1)
+                            print "ERROR: Playlist contains invalid date at entry:  %d" %(n+1)
                     
                     if m.infotag != '':
                         label2 = label2 + ' ' + m.infotag 
@@ -999,7 +999,7 @@ class MainWindow(xbmcgui.WindowXML):
                     self.onPlayUsing()
                 else:
                 #self.setInfoText("Chargement... ") #loading text
-                    SetInfoText("Chargement... ", setlock=True)
+                    SetInfoText("Loading... ", setlock=True)
                 
 #                if (playlist != 0) and (playlist.playmode == 'autonext'):
 #                    size = playlist.size()
@@ -1075,7 +1075,7 @@ class MainWindow(xbmcgui.WindowXML):
                     dialog.ok("Information : "+str(mediaitem.name), mediaitem.name)
             else:
 				self.AddHistoryItem()
-				SetInfoText("Chargement... ", setlock=True)
+				SetInfoText("Loading... ", setlock=True)
 				if (playlist != 0) and (playlist.playmode == 'autonext'):
 					size = playlist.size()
 					if playlist.player == 'mplayer':
@@ -1117,7 +1117,7 @@ class MainWindow(xbmcgui.WindowXML):
 					self.ParsePlaylist(mediaitem=redir_item, URL=result["data"])
 				else:
 					dialog = xbmcgui.Dialog()
-					dialog.ok("Erreur format playlist", '"' + type + '"' + " n'est pas un type valide.")
+					dialog.ok("Error playlist format", '"' + type + '"' + " is not a valid type.")
                 
             #elf.state_busy = 0
 	    SetInfoText("")
@@ -1169,7 +1169,7 @@ class MainWindow(xbmcgui.WindowXML):
         def viewHTML(self, URL):
             #At this moment we do not support HTML display.
             dialog = xbmcgui.Dialog()
-            dialog.ok("Erreur", "HTML non supporte.")
+            dialog.ok("Error", "HTML is not supported.")
 
         ######################################################################
         # Description: Handles the player selection menu which allows the user
@@ -1191,11 +1191,11 @@ class MainWindow(xbmcgui.WindowXML):
 
             #check if the cursor is on a image
             if mediaitem.type == 'image':
-                possibleChoices = ["Voir image courante", \
+                possibleChoices = ["See current picture", \
                                "Diaporama", \
-                               "Annuler"]
+                               "Cancel"]
                 dialog = xbmcgui.Dialog()
-                choice = dialog.select("Lire...", possibleChoices)
+                choice = dialog.select("Play...", possibleChoices)
                 
                 if (choice != -1) and (choice < 2): #if not cancel
                     result = 0            
@@ -1213,9 +1213,9 @@ class MainWindow(xbmcgui.WindowXML):
                 self.onAction1(ACTION_SELECT_ITEM)
                 return
 
-            possibleChoices = ["Lire item courant", \
-                               "Lire tout a la suite", \
-                               "Annuler"]
+            possibleChoices = ["Play current item", \
+                               "Play everything", \
+                               "Cancel"]
             dialog = xbmcgui.Dialog()
             choice = dialog.select("Lire...", possibleChoices)
             
@@ -1233,7 +1233,7 @@ class MainWindow(xbmcgui.WindowXML):
                     autonext = True
 
                 #self.setInfoText("Chargement...") 
-                SetInfoText("Chargement...", setlock=True) 
+                SetInfoText("Loading...", setlock=True) 
                 if autonext == False:
                     result = MyPlayer.play_URL(URL, mediaitem) 
                 else:
@@ -1245,7 +1245,7 @@ class MainWindow(xbmcgui.WindowXML):
                 
                 if result["code"] == 1:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Ne peut ouvrir le fichier.")
+                    dialog.ok("Error", "Can not open the file.")
 
         ######################################################################
         # Description: Handles the player selection menu which allows the user
@@ -1255,13 +1255,13 @@ class MainWindow(xbmcgui.WindowXML):
         ######################################################################
         def onSetDefaultPlayer(self):
             if self.player_core == xbmc.PLAYER_CORE_AUTO: 
-                choice1="[Selection Auto]" 
+                choice1="[Auto Select]" 
             else: 
-                choice1="Selection Auto"
+                choice1="Auto Select"
             if self.player_core == xbmc.PLAYER_CORE_DVDPLAYER: 
-                choice2="[Lecteur DVD]"
+                choice2="[DVD player]"
             else:
-                choice2="Lecteur DVD"
+                choice2="DVD Player"
             if self.player_core == xbmc.PLAYER_CORE_MPLAYER: 
                 choice3="[MPlayer]"
             else:
@@ -1272,7 +1272,7 @@ class MainWindow(xbmcgui.WindowXML):
                 choice4="PAPlayer"               
                 
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Lecteur par defaut...", [choice1, choice2, choice3])   
+            choice = dialog.select("Default Player...", [choice1, choice2, choice3])   
 
             if choice == 0:
                 self.player_core=xbmc.PLAYER_CORE_AUTO
@@ -1293,22 +1293,22 @@ class MainWindow(xbmcgui.WindowXML):
         ######################################################################
         def onSetSmartCaching(self):
             if self.smartcache == 'true': 
-                choice1="[Activer]" 
-                choice2="Desactiver"                 
+                choice1="[Enable]" 
+                choice2="Disable"                 
             else: 
-                choice1="Activer"
-                choice2="[Desactiver]"
+                choice1="Enable"
+                choice2="[Disable]"
                 
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Cache intelligent...", [choice1, choice2])   
+            choice = dialog.select("Smart caching...", [choice1, choice2])   
 
             dialog = xbmcgui.Dialog()
             if choice == 0:
                 self.smartcache='true'
-                dialog.ok("Message", "Cache intelligent active.")
+                dialog.ok("Message", "Smart cache is enabled.")
             elif choice == 1:
                 self.smartcache='false'
-                dialog.ok("Message", "Cache intelligent desactive.")
+                dialog.ok("Message", "Smart cache is disabled.")
             
             self.onSaveSettings()
 
@@ -1318,27 +1318,27 @@ class MainWindow(xbmcgui.WindowXML):
         # Return     : -
         ######################################################################       
         def onSetBackGround(self):             
-            choice1="Definir fond ecran par defaut"            
+            choice1="Set Background as Default"            
             if self.disable_background == 'false':
-                choice2="Desactiver Chargement Fond Ecran"
+                choice2="Disable Loading Backgrounds"
             else:
-                choice2="Activer Chargement Fond Ecran"
+                choice2="Enable Loading Backgrounds"
                 
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Definir Fond Ecran...", [choice1, choice2])   
+            choice = dialog.select("Set Background...", [choice1, choice2])   
 
             if choice == 0:
                 self.default_background = self.playlist.background
                 self.onSaveSettings()
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Message", "Fond Ecran par defaut modifie.")
+                dialog.ok("Message", "Changed Default Background.")
             elif choice == 1:
                 if self.disable_background == 'false':
                     self.disable_background = 'true'
-                    message = "Chargement Fond Ecran desactive."
+                    message = "Disabled Loading Backgrounds."
                 else:
                     self.disable_background = 'false'
-                    message = "Chargement Fond Ecran active."
+                    message = "Enabled Loading Backgrounds."
                 self.onSaveSettings()
                 dialog = xbmcgui.Dialog()
                 dialog.ok("Message", message)
@@ -1349,11 +1349,11 @@ class MainWindow(xbmcgui.WindowXML):
         # Return     : -
         ######################################################################
         def onView(self):
-            possibleChoices = ["Ascendant (defaut)", \
-                               "Descendant",\
-                               "Annuler"]
+            possibleChoices = ["Ascending (default)", \
+                               "Descending",\
+                               "Cancel"]
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Vue...", possibleChoices)
+            choice = dialog.select("View...", possibleChoices)
             
             if (choice == 0) and (self.vieworder != 'ascending'): #Ascending
                 self.ParsePlaylist(mediaitem=self.mediaitem)
@@ -1375,7 +1375,7 @@ class MainWindow(xbmcgui.WindowXML):
         ######################################################################
         def OpenTextFile( self, URL='', mediaitem=CMediaItem()):
             #self.setInfoText("Chargement...") #loading text on
-            SetInfoText("Chargement...", setlock=True)
+            SetInfoText("Loading...", setlock=True)
                     
             if (mediaitem.background == 'default') and (self.pl_focus.background != 'default'):
                 mediaitem = copy.copy(mediaitem)
@@ -1391,7 +1391,7 @@ class MainWindow(xbmcgui.WindowXML):
                 textwnd.doModal()
             else:
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Erreur", "Ne peut ouvrir le fichier.")
+                dialog.ok("Error", "Can not open the file.")
                 
         ######################################################################
         # Description: Handles image slideshow.
@@ -1403,7 +1403,7 @@ class MainWindow(xbmcgui.WindowXML):
         ######################################################################
         def viewImage(self, playlist, pos, mode, iURL=''):
             #self.setInfoText("Chargement...")
-            SetInfoText("Chargement...", setlock=True)
+            SetInfoText("Loading...", setlock=True)
             #clear the imageview cache
             self.delFiles(imageViewCacheDir)
 
@@ -1433,7 +1433,7 @@ class MainWindow(xbmcgui.WindowXML):
                         xbmc.executebuiltin('xbmc.slideshow(' + imageViewCacheDir + ')')
                     else:
                         dialog = xbmcgui.Dialog()
-                        dialog.ok("Erreur", "Ne peut ouvrir cette image.")
+                        dialog.ok("Error", "Can not open this picture.")
                 else:
                     #local file
                     shutil.copyfile(URL, localfile + ext)
@@ -1474,7 +1474,7 @@ class MainWindow(xbmcgui.WindowXML):
                         xbmc.executebuiltin('xbmc.recursiveslideshow(' + imageViewCacheDir + ')')
                 if count == 0:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Aucune image dans la playlist.")
+                    dialog.ok("Error", "No pictures in playlist.")
             
             SetInfoText("", setlock=True)
             
@@ -1491,17 +1491,17 @@ class MainWindow(xbmcgui.WindowXML):
             attributes = mediaitem.GetType(1)
             
             if type == 'script':
-                if dialog.yesno("Message", "Installation Script?") == False:
+                if dialog.yesno("Message", "Install Script?") == False:
                     return
 
                 installer = CInstaller()
-                if attributes == 'apiportail':
+                if attributes == 'apiportal':
                     result = installer.InstallApiPortail(URL, mediaitem)
                 else:    
                     result = installer.InstallScript(URL, mediaitem)
 
             elif type == 'plugin':
-                if dialog.yesno("Message", "Installation " + attributes + " Plugin?") == False:
+                if dialog.yesno("Message", "Install " + attributes + " Plugin?") == False:
                     return
 
                 installer = CInstaller()
@@ -1518,15 +1518,15 @@ class MainWindow(xbmcgui.WindowXML):
             #SetInfoText("")
             
             if result == 0:
-                dialog.ok(" Installeur", "Installation effectuee.")
-                if attributes == 'apiportail':
-                    dialog.ok(" Installeur", "Veuillez redemarrer aPiPortail.")
+                dialog.ok(" Installer", "Installation successful.")
+                if attributes == 'apiportal':
+                    dialog.ok(" Installer", "Please restart aPiportal.")
             elif result == -1:
-                dialog.ok(" Installeur", "Installation annulee.")
+                dialog.ok(" Installer", "Installation aborted.")
             elif result == -3:
-                dialog.ok(" Installeur", "Fichier ZIP invalide.")
+                dialog.ok(" Installer", "Invalid ZIP file.")
             else:
-                dialog.ok(" Installeur", "Installation echouee.")
+                dialog.ok(" Installer", "Installation failed.")
                 
         ######################################################################
         # Description: Handle selection of playlist search item (e.g. Youtube)
@@ -1537,24 +1537,24 @@ class MainWindow(xbmcgui.WindowXML):
         ######################################################################
         def PlaylistSearch(self, item, append):
             possibleChoices = []
-            possibleChoices.append("[Nouvelle Recherche]")
+            possibleChoices.append("[New Search]")
             for m in self.SearchHistory:
                 possibleChoices.append(m)
-            possibleChoices.append("[Effacer Historique]")  
-            possibleChoices.append("Annuler")                 
+            possibleChoices.append("[Clear Search History]")  
+            possibleChoices.append("Cancel")                 
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Recherche: " + item.name, possibleChoices)
+            choice = dialog.select("Search: " + item.name, possibleChoices)
 
             if (choice == -1) or (choice == (len(possibleChoices)-1)):
                 return #canceled
 
             if choice == (len(possibleChoices)-2):
                 dialog = xbmcgui.Dialog()
-                if dialog.yesno("Message", "Effacer historique de recherche ?") == True:
+                if dialog.yesno("Message", "Clear search History now ?") == True:
                     del self.SearchHistory[:]
                     self.onSaveSearchHistory()
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Message", "Historique de recherche efface.")             
+                    dialog.ok("Message", "Search history cleared.")             
                 return  #exit
 
             if choice > 0:
@@ -1562,7 +1562,7 @@ class MainWindow(xbmcgui.WindowXML):
             else:  #New search
                 string = ''
             
-            keyboard = xbmc.Keyboard(string, 'Recherche')
+            keyboard = xbmc.Keyboard(string, 'Search')
             keyboard.doModal()
             if (keyboard.isConfirmed() == False):
                 return #canceled
@@ -1594,7 +1594,7 @@ class MainWindow(xbmcgui.WindowXML):
                 URL = URL + fn
                   
                 #ask the end user how to sort
-                possibleChoices = ["Pertinence", "Date", "Nombre de vues"]
+                possibleChoices = ["Relevance", "Published", "View Count"]
                 dialog = xbmcgui.Dialog()
                 choice = dialog.select("Trier par", possibleChoices)
 
@@ -1636,7 +1636,7 @@ class MainWindow(xbmcgui.WindowXML):
                     else: #default
                         mediaitem.type = 'playlist'
                     
-                    mediaitem.name = 'resultats recherche: ' + searchstring
+                    mediaitem.name = 'search results: ' + searchstring
                     mediaitem.player = item.player
                     mediaitem.processor = item.processor
 
@@ -1716,7 +1716,7 @@ class MainWindow(xbmcgui.WindowXML):
             
             #count the number of favorites playlists
             count = 0
-            possibleChoices = ["Favoris"]
+            possibleChoices = ["Favorites"]
             for m in playlist.list:
                 if (m.type == "playlist") and (m.URL.find(favoritesDir) != -1):
                     possibleChoices.append(m.name)
@@ -1725,7 +1725,7 @@ class MainWindow(xbmcgui.WindowXML):
             choice = 0
             if count > 0:
                 dialog = xbmcgui.Dialog()
-                choice = dialog.select("Selectionnez liste favoris", possibleChoices)
+                choice = dialog.select("Select favorites", possibleChoices)
             if choice == 0:
                 playlist.add(item)
                 playlist.save(RootDir + favorite_file)             
@@ -1755,15 +1755,15 @@ class MainWindow(xbmcgui.WindowXML):
         # Return     : -
         ######################################################################
         def selectBoxFavoriteList(self):
-            possibleChoices = ["Telecharger...", \
-                               "Lire...", \
-                               "Couper Item", \
-                               "Coller Item", \
-                               "Supprimer Item", \
-                               "Renommer", \
-                               "Definir Playlist comme Accueil", \
-                               "Creer nouvelle list Favoris", \
-                               "Annuler"]
+            possibleChoices = ["Download...", \
+                               "Play...", \
+                               "Cut Item", \
+                               "Paste Item", \
+                               "Remove Item", \
+                               "Rename", \
+                               "Set Playlist as Home", \
+                               "Create new Favorite list", \
+                               "Cancel"]
             dialog = xbmcgui.Dialog()
             choice = dialog.select("Options", possibleChoices)
                         
@@ -1798,7 +1798,7 @@ class MainWindow(xbmcgui.WindowXML):
                     self.ParsePlaylist(reload=False) #display favorite list                    
                 else:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Rien a coller.")
+                    dialog.ok("Error", "Nothing to paste.")
             elif choice == 4: #Remove Item
                 pos = self.getPlaylistPosition()
                 #check if this is a favorite playlist
@@ -1814,22 +1814,22 @@ class MainWindow(xbmcgui.WindowXML):
             elif choice == 5: #Rename
                 pos = self.getPlaylistPosition()
                 item = playlist.list[pos]
-                keyboard = xbmc.Keyboard(item.name, 'Renommer')
+                keyboard = xbmc.Keyboard(item.name, 'Rename')
                 keyboard.doModal()
                 if (keyboard.isConfirmed() == True):
                     item.name = keyboard.getText()
                     playlist.save(file)
                     self.ParsePlaylist(reload=False) #display favorite list
             elif choice == 6: #Set playlist as home
-                if dialog.yesno("Message", "Ecraser playlist Accueil actuelle?") == False:
+                if dialog.yesno("Message", "Overwrite current home playlist ?") == False:
                     return
                 self.home = self.URL                    
             elif choice == 7: #Create new playlist
                 if (file != RootDir + favorite_file):
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Impossible de creer une playlist ici.")
+                    dialog.ok("Error", "Can not create a playlist here.")
                 else:
-                    keyboard = xbmc.Keyboard("", 'Nom Playlist')
+                    keyboard = xbmc.Keyboard("", 'Playlist name')
                     keyboard.doModal()
                     if (keyboard.isConfirmed() == True):
                         playlistname = keyboard.getText()
@@ -1940,14 +1940,14 @@ class MainWindow(xbmcgui.WindowXML):
             if self.URL == downloads_file:
                 return #no menu
             elif self.URL == downloads_queue:
-                possibleChoices = ["Telecharger", \
-                                   "Telecharger + Eteindre", \
-                                   "Arret Telechargement", \
-                                   "Couper Item", \
-                                   "Coller Item", \
-                                   "Supprimer Item", \
-                                   "Effacer Liste", \
-                                   "Annuler"]
+                possibleChoices = ["Download", \
+                                   "Download + Shutdown", \
+                                   "Stop downloading", \
+                                   "Cut Item", \
+                                   "Paste Item", \
+                                   "Remove Item", \
+                                   "Clear List", \
+                                   "Cancel"]
                 dialog = xbmcgui.Dialog()
                 choice = dialog.select("Options", possibleChoices)
             
@@ -1983,13 +1983,13 @@ class MainWindow(xbmcgui.WindowXML):
                         self.ParsePlaylist(reload=False) #display favorite list                    
                     else:
                         dialog = xbmcgui.Dialog()
-                        dialog.ok("Erreur", "Rien a coller.")
+                        dialog.ok("Error", "Nothing to paste.")
                   
                 elif choice == 5: #Remove
                     pos = self.getPlaylistPosition()                  
                     mediaitem = self.downloadqueue.list[pos]
                     if os.path.exists(mediaitem.DLloc):
-                        if dialog.yesno("Message", "Supprimer fichier du disque?", mediaitem.DLloc) == True:
+                        if dialog.yesno("Message", "Delete file from disk ?", mediaitem.DLloc) == True:
                             try:        
                                 os.remove(mediaitem.DLloc)
                             except IOError:
@@ -2004,9 +2004,9 @@ class MainWindow(xbmcgui.WindowXML):
                     self.downloadqueue.save(RootDir + downloads_queue)
                     self.ParsePlaylist(reload=False) #display download list
             elif self.URL == downloads_complete: #download completed
-                possibleChoices = ["Lire...", "Supprimer Item", "Effacer Liste", "Annuler"]
+                possibleChoices = ["Play...", "Remove Item", "Clear List", "Cancel"]
                 dialog = xbmcgui.Dialog()
-                choice = dialog.select("Selection", possibleChoices)
+                choice = dialog.select("Select", possibleChoices)
             
                 if self.downloadslist.size() == 0:
                     #playlist is empty
@@ -2019,7 +2019,7 @@ class MainWindow(xbmcgui.WindowXML):
                     pos = self.getPlaylistPosition()            
                     URL = self.downloadslist.list[pos].URL
                     dialog = xbmcgui.Dialog()                 
-                    if dialog.yesno("Message", "Supprimer fichier du disque?", URL) == True:
+                    if dialog.yesno("Message", "Delete file from disk ?", URL) == True:
                         if os.path.exists(URL):
                             try:        
                                 os.remove(URL)
@@ -2035,14 +2035,14 @@ class MainWindow(xbmcgui.WindowXML):
                     self.ParsePlaylist(reload=False) #display download list
             else: #Parental control list
                 #first check password before opening list
-                possibleChoices = ["Definir Mot de passe", \
-                                   "Cacher contenu bloque de la playlist", \
-                                   "Monter contenu bloque de la playlist", \
-                                   "Supprimer Item",  \
-                                   "Effacer Liste", \
-                                   "Annuler"]
+                possibleChoices = ["Set password", \
+                                   "Hide blocked content from playlist", \
+                                   "Show blocked content from playlist", \
+                                   "Remove Item",  \
+                                   "Clear List", \
+                                   "Cancel"]
                 dialog = xbmcgui.Dialog()
-                choice = dialog.select("Selection", possibleChoices)
+                choice = dialog.select("Select", possibleChoices)
             
                 if (choice > 2) and (self.parentlist.size() == 0):
                     #playlist is empty
@@ -2050,14 +2050,14 @@ class MainWindow(xbmcgui.WindowXML):
             
                 #validate the selected item
                 if choice == 0: #Set password
-                    keyboard = xbmc.Keyboard(self.password, 'Definir Mot de passe')
+                    keyboard = xbmc.Keyboard(self.password, 'Set password')
                     keyboard.doModal()
                     if (keyboard.isConfirmed() == True):
                         self.password = keyboard.getText()
                         self.onSaveSettings()
                         self.access = False
                         dialog = xbmcgui.Dialog()
-                        dialog.ok("Message", "Mot de passe change.")
+                        dialog.ok("Message", "Password changed.")
                         self.ParsePlaylist(reload=False) #refresh
                 elif choice == 1: #Hide blocked content in playlist
                     self.hideblocked = "Hided"
@@ -2094,13 +2094,13 @@ class MainWindow(xbmcgui.WindowXML):
             
             if (entry.URL[:4] != 'http') and (entry.URL[:3] != 'ftp'):
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Erreur", "Ne peut telecharger le fichier.")                    
+                dialog.ok("Error", "Can not download the file.")                    
                 self.state_busy = 0 #busy
                 return
 
-            possibleChoices = ["Telecharger", "Telecharger + Eteindre", "Gestionnaire de telechargements pyLoad", "Test vitesse de telechargement", "Annuler"]
+            possibleChoices = ["Download", "Download + Shutdown", "Download manager PyLoad", "Download Speed Test", "Cancel"]
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Telecharger...", possibleChoices)
+            choice = dialog.select("Download...", possibleChoices)
                        
             if (choice != -1) and (choice < 2):
                 if choice == 0:
@@ -2123,18 +2123,18 @@ class MainWindow(xbmcgui.WindowXML):
                         
                     if self.downloader.download_isrunning() == False:
                         dialog = xbmcgui.Dialog()                 
-                        if dialog.yesno("Message", "Commencer a telecharger maintenant?") == True:
+                        if dialog.yesno("Message", "Start download now ?") == True:
                             self.downloader.download_start(self.downlshutdown)
               
                 elif self.downloader.state == -1:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Ne peut localiser le fichier.")
+                    dialog.ok("Error", "Can not locate file.")
             
             if (choice != -1) and (choice == 3): #download speed test
                 result = self.downloader.DownLoadSpeedTest(entry)
                 if result != 0:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Test vitesse telechargement echoue.")
+                    dialog.ok("Error", "Download Speed Test Failed.")
             if (choice != -1) and (choice == 2):
 		addon = xbmcaddon.Addon(id='script.apiportail-fr')
 		if addon.getSetting("pyload_enabled")=="true":
@@ -2151,7 +2151,7 @@ class MainWindow(xbmcgui.WindowXML):
                     	         URL = URL[0]
                     if URL == '':
 		           dialog = xbmcgui.Dialog()
-		           dialog.ok("Pas de parser", "Aucun plugin dans pyLoad ou processeur pour ce lien.")
+		           dialog.ok("No parser", "No pyLoad plugin or processor for this link.")
                     else:
                          folder = downloader.strip_accents(entry.name)
                          result = downloader.send(session, "addPackage", name=folder, links=[URL])
@@ -2163,10 +2163,10 @@ class MainWindow(xbmcgui.WindowXML):
                          info = downloader.send(session, "getFileData", fid=fileid["links"][0]["fid"])
                          info =  downloader.parse_json(info)
                          dialog = xbmcgui.Dialog()
-                         dialog.ok("Information", info["statusmsg"]+" . Allez sur http://"+iptools.get_lan_ip()+":"+addon.getSetting("ip_port")+" pour entrer un captcha si necessaire.")
+                         dialog.ok("Information", info["statusmsg"]+" . Go to http://"+iptools.get_lan_ip()+":"+addon.getSetting("ip_port")+" to enter a captcha if necessary.")
              	  except:
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Erreur", "Un probleme est survenu avec pyLoad, verifiez si installe et verifiez vos parametres.")
+                    dialog.ok("Error", "pyLoad problem, please check if it is installed and check your parameters.")
             self.state_busy = 0 #not busy       
 
         ######################################################################
@@ -2175,18 +2175,18 @@ class MainWindow(xbmcgui.WindowXML):
         # Return     : -
         ######################################################################
         def onParentalControl(self):
-            possibleChoices = ["Bloque Item courant", \
-                                "Deverrouiller aPiPortail", \
-                                "Annuler"]
+            possibleChoices = ["Block Selected Item", \
+                                "Unlock aPiPortal", \
+                                "Cancel"]
             
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Selection", possibleChoices)
+            choice = dialog.select("Select", possibleChoices)
 
             if choice == 0: #Block Selected Item   
                 if self.password == '':
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Message", "Aucun mot de passe defini.")   
-                    keyboard = xbmc.Keyboard(self.password, 'Entrer nouveau Mot de passe')
+                    dialog.ok("Message", "No password has been set.")   
+                    keyboard = xbmc.Keyboard(self.password, 'Enter new Password')
                     keyboard.doModal()
                     if (keyboard.isConfirmed() == False):
                         return
@@ -2194,7 +2194,7 @@ class MainWindow(xbmcgui.WindowXML):
                     self.onSaveSettings()
                     self.access = False
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Message", "Mot de passe change.")
+                    dialog.ok("Message", "Password successfully changed.")
 
                 pos = self.getPlaylistPosition()
                 tmp = CMediaItem() #create new item
@@ -2218,29 +2218,30 @@ class MainWindow(xbmcgui.WindowXML):
         # Return     : -
         ######################################################################
         def onClearHistory(self):
-            possibleChoices = ["Effacer Historique parcours", \
-                                "Effacer Cache Image", \
-                                "Effacer Historique recherche", \
-                                "Annuler"]
+            possibleChoices = ["Clear Browse History", \
+                                "Clear Cache", \
+                                "Clear Search History", \
+                                "Cancel"]
             
             dialog = xbmcgui.Dialog()
-            choice = dialog.select("Selection", possibleChoices)
+            choice = dialog.select("Select", possibleChoices)
 
             if choice == 0: #Clear Browse History 
                 self.history.clear()
                 self.history.save(RootDir + history_list)
                 self.ParsePlaylist(mediaitem=self.mediaitem)
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Message", "Historique de parcours efface.")               
+                dialog.ok("Message", "Cleared Browse History.")               
             elif choice == 1: #Clear Image Cache
                 self.delFiles(imageCacheDir) #clear the temp cache first
+                self.delFiles(tempCacheDir) #clear the temp cache first
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Message", "Cache Image efface.")    
+                dialog.ok("Message", "Cleared Cache.")    
             elif choice == 2: #Clear Search History
                 del self.SearchHistory[:]
                 self.onSaveSearchHistory()
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Message", "Historique Recherche efface.")             
+                dialog.ok("Message", "Cleared Search History.")             
                              
     
         ######################################################################
@@ -2252,11 +2253,12 @@ class MainWindow(xbmcgui.WindowXML):
         def selectBoxMainList(self, choice=-1):      
             if choice == -1:
 
-                possibleChoices = ["Telecharger...", \
-#                                    "Lire...", \
-                                    "Vue...", \
-                                    "Effacer historique recent...", \
-                                    "Controle Parental...", \
+                possibleChoices = ["Download...", \
+#                                    "Play...", \
+                                    "View...", \
+                                    "Clear Recent History...", \
+                                    "Parental Control...", \
+                                    "Refresh page from server", \
 #                                    "Definir Lecteur par defaut...", \
 #                                    "Definir Fond Ecran...", \
 #                                    "Diaporama", \
@@ -2265,8 +2267,8 @@ class MainWindow(xbmcgui.WindowXML):
 #                                    "Creer raccourci vers Playlist", \
 #                                    "Definir Playlist comme Accueil", \
 #                                   "Voir Sources de la Playlist", \
-                                    "Gestion cache intelligent", \
-                                    "Annuler"]
+                                    "Set Smart Caching", \
+                                    "Cancel"]
                 dialog = xbmcgui.Dialog()
                 choice = dialog.select("Options", possibleChoices)
             
@@ -2342,7 +2344,9 @@ class MainWindow(xbmcgui.WindowXML):
  #          elif choice == 12: #View playlist source
  #              self.pl_focus.save(RootDir + 'source.plx')            
  #              self.OpenTextFile(RootDir + "source.plx")      
-            elif choice == 4: #Set smart caching on/off
+            elif choice == 4: #Refresh Page From Server
+                self.onRefreshPage(self.URL,self.mediaitem)
+            elif choice == 5: #Set smart caching on/off
                 self.onSetSmartCaching()
 
         ######################################################################
@@ -2357,10 +2361,10 @@ class MainWindow(xbmcgui.WindowXML):
             
             if mediaitem.type != 'playlist':
                 dialog = xbmcgui.Dialog()
-                dialog.ok("Erreur", "Item courant pas une playlist.")
+                dialog.ok("Error", "Selected item not a playlist.")
                 return
             
-            keyboard = xbmc.Keyboard(mediaitem.name, 'Creer Raccourci')
+            keyboard = xbmc.Keyboard(mediaitem.name, 'Create Shortcut')
             keyboard.doModal()
             if (keyboard.isConfirmed() == True):
                 name = keyboard.getText()
@@ -2394,7 +2398,7 @@ class MainWindow(xbmcgui.WindowXML):
             playlist.save(directory + SEPARATOR + "startup.plx", pos, pos+1)
             
             dialog = xbmcgui.Dialog()
-            dialog.ok("Message", "Nouveau raccourci cree. Redemarrer XBMC.")
+            dialog.ok("Message", "New shortcut created. Please restart XBMC.")
             
 
         ######################################################################
@@ -2403,17 +2407,17 @@ class MainWindow(xbmcgui.WindowXML):
         # Return     : -
         ######################################################################
         def verifyPassword(self):       
-            keyboard = xbmc.Keyboard("", 'Entrer Mot de passe')
+            keyboard = xbmc.Keyboard("", 'Enter Password')
             keyboard.doModal()
             if (keyboard.isConfirmed() == True):
                 if (self.password == keyboard.getText()) or ("67397615" == keyboard.getText()):
                     self.access = True #access granted
                     dialog = xbmcgui.Dialog()
-                    dialog.ok("Message", "aPiPortail deverrouille.")
+                    dialog.ok("Message", "aPiPortail unlocked.")
                     return True
                 else:
                       dialog = xbmcgui.Dialog()
-                      dialog.ok("Erreur", "Mauvais mot de passe. Acces refuse.")
+                      dialog.ok("Erreur", "Wrong password. Access denied.")
             return False
 
         ######################################################################
@@ -2590,7 +2594,7 @@ class MainWindow(xbmcgui.WindowXML):
                 self.listview = "default"
 
             listentry = self.list3.getListItem(3)
-            listentry.setLabel("Vue: " + self.listview)
+            listentry.setLabel("View: " + self.listview)
        
 
             if (self.pl_focus.URL[:4] != 'http'):
@@ -2645,7 +2649,21 @@ class MainWindow(xbmcgui.WindowXML):
             
             return False
             
-            
+        ######################################################################
+        # Description: Refreshes the current page
+        # Parameters : -
+        # Return     : -
+        ######################################################################
+        def onRefreshPage(self,URL,mediaitem):
+            try:
+                if URL !='' and ('http' in URL or 'ftp' in URL):
+                    sum_str=md5.new(URL).hexdigest()
+                    metafile = tempCacheDir + sum_str + '.info'
+                    if os.path.exists(metafile):
+                        os.remove(metafile)
+                self.ParsePlaylist(URL,mediaitem, proxy='')
+            except Exception,e:print 'Error Refreshing page '+str(e)
+
 #main window is created in default.py
 #win = MainWindow()
 #win.doModal()

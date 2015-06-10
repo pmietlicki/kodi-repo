@@ -110,13 +110,13 @@ downloads_complete='downloads.plx'
 parent_list='blacklist.plx'
 history_list='history.plx'
 plxVersion = '8'
-home_URL_old='http://apitv.ile.nc/accueil.txt'
-home_URL='http://apitv.ile.nc/accueil.txt'
-home_URL_mirror='http://apitv.ile.nc/accueil.txt'
+home_URL_old='http://apitv.pascal-mietlicki.fr/accueil.txt'
+home_URL='http://apitv.pascal-mietlicki.fr/accueil.txt'
+home_URL_mirror='http://apitv.pascal-mietlicki.fr/accueil.txt'
 background_image1 = 'background1.jpg'
 background_image2 = 'background2.png'
 searchhistory_file = 'search.dat'
-nxserver_URL = 'http://apitv.ile.nc'
+nxserver_URL = 'http://apitv.pascal-mietlicki.fr'
 
 url_open_timeout = 10 #60 seconds
 page_size = 200 #display maximum 200 entries on one page

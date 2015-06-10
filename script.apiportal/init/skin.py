@@ -20,7 +20,7 @@ from settings import *
 try: Emulating = xbmcgui.Emulating
 except: Emulating = False
 
-addon = xbmcaddon.Addon(id='script.apiportail-fr')
+addon = xbmcaddon.Addon(id='script.apiportal')
 RootDir = addon.getAddonInfo('path')
 
 if RootDir[-1]==';': RootDir=RootDir[0:-1]

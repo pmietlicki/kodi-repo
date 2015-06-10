@@ -2037,7 +2037,7 @@ class MainWindow(xbmcgui.WindowXML):
                 #first check password before opening list
                 possibleChoices = ["Definir Mot de passe", \
                                    "Cacher contenu bloque de la playlist", \
-                                   "Monter contenu bloque de la playlist", \
+                                   "Montrer contenu bloque de la playlist", \
                                    "Supprimer Item",  \
                                    "Effacer Liste", \
                                    "Annuler"]
@@ -2234,6 +2234,7 @@ class MainWindow(xbmcgui.WindowXML):
                 dialog.ok("Message", "Historique de parcours efface.")               
             elif choice == 1: #Clear Image Cache
                 self.delFiles(imageCacheDir) #clear the temp cache first
+                self.delFiles(tempCacheDir) #clear the temp cache first
                 dialog = xbmcgui.Dialog()
                 dialog.ok("Message", "Cache Image efface.")    
             elif choice == 2: #Clear Search History
@@ -2257,6 +2258,7 @@ class MainWindow(xbmcgui.WindowXML):
                                     "Vue...", \
                                     "Effacer historique recent...", \
                                     "Controle Parental...", \
+                                    "Rafraichir la page", \
 #                                    "Definir Lecteur par defaut...", \
 #                                    "Definir Fond Ecran...", \
 #                                    "Diaporama", \
@@ -2341,8 +2343,10 @@ class MainWindow(xbmcgui.WindowXML):
  #               self.onSaveSettings()
  #          elif choice == 12: #View playlist source
  #              self.pl_focus.save(RootDir + 'source.plx')            
- #              self.OpenTextFile(RootDir + "source.plx")      
-            elif choice == 4: #Set smart caching on/off
+ #              self.OpenTextFile(RootDir + "source.plx")
+            elif choice == 4: #Refresh Page From Server
+                self.onRefreshPage(self.URL,self.mediaitem)      
+            elif choice == 5: #Set smart caching on/off
                 self.onSetSmartCaching()
 
         ######################################################################
@@ -2645,6 +2649,20 @@ class MainWindow(xbmcgui.WindowXML):
             
             return False
             
+        ######################################################################
+        # Description: Refreshes the current page
+        # Parameters : -
+        # Return     : -
+        ######################################################################
+        def onRefreshPage(self,URL,mediaitem):
+            try:
+                if URL !='' and ('http' in URL or 'ftp' in URL):
+                    sum_str=md5.new(URL).hexdigest()
+                    metafile = tempCacheDir + sum_str + '.info'
+                    if os.path.exists(metafile):
+                        os.remove(metafile)
+                self.ParsePlaylist(URL,mediaitem, proxy='')
+            except Exception,e:print 'Error Refreshing page '+str(e)
             
 #main window is created in default.py
 #win = MainWindow()

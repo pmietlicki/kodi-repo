@@ -40,14 +40,14 @@ class CServer:
     # Return     : -
     ######################################################################            
     def login(self):
-        keyboard = xbmc.Keyboard('', 'Entrer Login')
+        keyboard = xbmc.Keyboard('', 'Enter User name')
         keyboard.doModal()
         if (keyboard.isConfirmed() != True):
             return -2
             
         username = keyboard.getText()
 
-        keyboard = xbmc.Keyboard('', 'Entrer Mot de passe')
+        keyboard = xbmc.Keyboard('', 'Enter Password')
         keyboard.doModal()
         if (keyboard.isConfirmed() != True):
             return -2
@@ -114,7 +114,7 @@ class CServer:
                 
         if self.is_user_logged_in() == False:
             dialog = xbmcgui.Dialog()
-            dialog.ok(" Erreur", "Non logue.")
+            dialog.ok(" Error", "You are not logged in.")
             return -1
 
         #login to the server

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.apiportail-fr"
-       name="aPiTV Portail"
+<addon id="script.apiportal"
+       name="aPiTV Portal"
        version="1.0"
        provider-name="aPiTV">
   <requires>

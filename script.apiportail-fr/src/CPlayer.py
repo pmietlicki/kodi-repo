@@ -89,7 +89,7 @@ class CPlayer(xbmc.Player):
                         #    self.pls.add(loc_url, name)
                         
                         if self.pls.size() == 1:
-                            #start playing, continue loading                      
+                            #start playing, continue loading
                             xbmc.Player.play(self, self.pls)
                 index = index + 1
                 count = count + 1

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.apiportail-fr"
-       name="aPiTV Portail FR"
+<addon id="script.apiportal"
+       name="aPiTV Portal"
        version="1.0"
        provider-name="aPiTV">
   <requires>
@@ -15,7 +15,7 @@
     <platform>all</platform>
     <minversion>28764</minversion>
     <summary>Media Browser Addon for Kodi</summary>
-    <description>TubeList plugin to see your playlist on your media center.</description>
+    <description>TubeList plugin to see the playlists from pascal-mietlicki.fr on your media center.</description>
     <website>http://www.pascal-mietlicki.fr/</website>
     <source></source>
     <email></email>

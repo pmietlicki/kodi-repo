@@ -106,7 +106,7 @@ class CDownLoader(threading.Thread):
             size_check_skip=False
             
         if size_check_skip:
-            print "Mega URL; arret verif taille"
+            print "Mega URL; skipping size check"
             size=0
             urlopener = CURLLoader()
             result = urlopener.geturl_processor(entry)
@@ -169,7 +169,7 @@ class CDownLoader(threading.Thread):
         #Check if the file already exists
         if os.path.exists(self.localfile):
             dialog = xbmcgui.Dialog()
-            if dialog.yesno("Message", "Le fichier de destination existe deja, ecraser?") == False:
+            if dialog.yesno("Message", "The destination file already exists, continue ?") == False:
                 self.state = -2 #cancel download
 
         #end of function.        
@@ -299,7 +299,7 @@ class CDownLoader(threading.Thread):
             elif self.state == -1:     
                 #Downlaod failed
                 dialog = xbmcgui.Dialog()
-                if dialog.yesno("Erreur", "Echec telechargement. Re-essayer?") == False:
+                if dialog.yesno("Erreur", "Download failed. Retry ?") == False:
                     self.playlist_src.remove(0)
                     self.playlist_src.save(RootDir + downloads_queue)
                     counter = counter + 1
@@ -590,11 +590,11 @@ class CDownLoader(threading.Thread):
             self.f = ftplib.FTP()
             self.f.connect(host,port)
         except (socket.error, socket.gaierror), e:
-            print 'ERREUR: ne peut atteindre "%s"' % host
+            print 'ERROR: cannot reach "%s"' % host
             self.state = -1 #failed to download the file
             return
 
-        print '*** Connecte sur hote "%s"' % host
+        print '*** Connected to host "%s"' % host
 
         try:
             if username != '':
@@ -602,22 +602,22 @@ class CDownLoader(threading.Thread):
             else:
                 self.f.login()
         except ftplib.error_perm:
-            print 'ERREUR: pas de connexion anonyme'
+            print 'ERROR: cannot login anonymously'
             self.f.quit()
             self.state = -1 #failed to download the file
             return
 
-        print '*** Logue comme "anonyme"'
+        print '*** Logged in as "anonymous"'
 
         try:
             self.f.cwd(path)
         except ftplib.error_perm:
-            print 'ERREUR: ne peut CD vers "%s"' % path
+            print 'ERROR: cannot CD to "%s"' % path
             self.f.quit()
             self.state = -1 #failed to download the file
             return
 
-        print '*** Change vers dossier "%s"' % path
+        print '*** Changed to "%s" folder' % path
 
         #retrieve the file
         self.bytes = 0
@@ -630,10 +630,10 @@ class CDownLoader(threading.Thread):
             self.percent2 = 0
             self.f.retrbinary('RETR %s' % file, self.download_fileFTP_callback)
         except ftplib.error_perm:
-            print 'ERREUR: ne peut lire fichier "%s"' % file
+            print 'ERROR: cannot read file "%s"' % file
             os.unlink(self.file)
         else:
-            print '*** "%s" telecharge vers CWD' % file
+            print '*** Downloaded "%s" to CWD' % file
         
         self.f.quit()
        
@@ -696,11 +696,11 @@ class CDownLoader(threading.Thread):
 
         if URL[:3] == 'ftp':
             dialog = xbmcgui.Dialog()
-            dialog.ok("Message", "test vitesse telechargement FTP non supporte.")
+            dialog.ok("Message", "FTP download speed test not supported.")
             return 0
 
         dialog = xbmcgui.DialogProgress()
-        dialog.create("Test vitesse telechargement", entry.name)        
+        dialog.create("Download Speed Test", entry.name)        
         dialog.update(0, entry.name)
     
         try:
@@ -763,7 +763,7 @@ class CDownLoader(threading.Thread):
         dlspeed = (bytes / 1024) / deltatime
         
         dialog = xbmcgui.Dialog()
-        dialog.ok("Message", "Vitesse telechargement: %d kBytes/s." % dlspeed)
+        dialog.ok("Message", "Download speed: %d kBytes/s." % dlspeed)
         
         return 0
 

@@ -92,11 +92,11 @@ class CInstaller(xbmcgui.Window):
         if loader.state != 0:
             if loader.state == -2:
                 dialog = xbmcgui.Dialog()
-                dialog.ok(" Installeur", "Echec. Pas un fichier ZIP.", "Use the standard Download feature.")
+                dialog.ok(" Installer", "Failed. Not a ZIP file.","Use the standard Download feature.")
             return -2
         filename = loader.localfile
         
-        SetInfoText("Installation... ", setlock=True)
+        SetInfoText("Installing... ", setlock=True)
         
         result = self.unzip_file_into_dir(filename, pluginDir + subdir)    
                      
@@ -151,7 +151,7 @@ class CInstaller(xbmcgui.Window):
         if result["code"] == 0:
             self.URL = urlopener.loc_url
         
-        SetInfoText("Telechargement... ", setlock=True)
+        SetInfoText("Downloading... ", setlock=True)
         
         #download the file.
         loader = CFileLoader2()
@@ -171,7 +171,7 @@ class CInstaller(xbmcgui.Window):
         if pos != -1:
             InstallDir = RootDir[0:pos+1]
 
-            print "Installation aPiPortail dans: " + InstallDir
+            print "Installing aPiPortal in: " + InstallDir
 
             result = self.unzip_file_into_dir(filename, InstallDir)
             
@@ -209,7 +209,7 @@ class CInstaller(xbmcgui.Window):
                     #directory exists
                     if chk_confirmation == False:
                         dialog = xbmcgui.Dialog()
-                        if dialog.yesno("Installeur", "Dossier existant, continuer?") == False:
+                        if dialog.yesno("Installer", "Directory already exists, continue ?") == False:
                             return -1
                 else:
                     #directory does not exist. Create it.

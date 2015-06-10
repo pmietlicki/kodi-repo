@@ -18,7 +18,7 @@
         <posy>220</posy>
         <width>200</width>
         <height>32</height>
-        <label>aPiPortail Connexion:</label>
+        <label>aPiPortal Connection:</label>
         <textcolor>FFFFFFFF</textcolor>
         <font>special13</font>
     </control>

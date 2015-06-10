@@ -292,7 +292,7 @@ class CFileLoader2:
 #               Trace("There is a problem with the URL: " + str(e.reason))
 #               self.state = -1 #failed
             except Exception, e:
-                Message("Une erreur est survenue, veuillez reessayer plus tard : %s" %(e))
+                Message("An error occured, please try later : %s" %(e))
                 self.state = -1 #failed
                 
         if timeout != 0:

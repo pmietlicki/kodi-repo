@@ -7,7 +7,7 @@ import xbmc, xbmcgui
 import base64
 import time
 
-addon = xbmcaddon.Addon(id='script.apiportail-fr')
+addon = xbmcaddon.Addon(id='script.apiportal')
 
 try: Emulating = xbmcgui.Emulating
 except: Emulating = False
@@ -94,7 +94,7 @@ class PYLoader:
                     return captcha
                 elif userInput == '':
                     dialog = xbmcgui.Dialog()
-                    dialog.ok('Erreur captcha', 'Aucun texte entre. Veuillez reessayer de lire la video en relancant le processus.')
+                    dialog.ok('Captcha error', 'Nothing entered. Please try to read the video by relaunching the process.')
             xdg.close()
             os.remove(imageCacheDir + captchaname)
             return "false"

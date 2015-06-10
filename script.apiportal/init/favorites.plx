@@ -1,10 +1,10 @@
 version=7
 background=default
 logo=none
-title=Favoris
+title=Favorites
 player=default
 #
 type=playlist
-name=Accueil
-URL=http://apitv.ile.nc/accueil.txt
+name=Home
+URL=http://apitv.pascal-mietlicki.fr/home.txt
 #

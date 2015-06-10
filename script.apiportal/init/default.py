@@ -8,7 +8,7 @@ import shutil
 # directory settings
 #############################################################################
 
-addon = xbmcaddon.Addon(id='script.apiportail-fr')
+addon = xbmcaddon.Addon(id='script.apiportal')
 RootDir = addon.getAddonInfo('path')
 
 if RootDir[-1]==';': RootDir=RootDir[0:-1]
@@ -25,17 +25,17 @@ if xbmc.getInfoLabel("System.BuildVersion")[:2] == '10':
     scriptDir = "special://home/addons/"
     pluginDir = "special://home/addons/"
     skinDir = "special://home/skin/"
-    aPiPortailDir = scriptDir + "aPiPortail/"  
+    aPiPortalDir = scriptDir + "aPiPortal/"  
 elif xbmc.getInfoLabel("System.BuildVersion")[:1] == '9':
     scriptDir = "special://home/scripts/"
     pluginDir = "special://home/plugins/"
     skinDir = "special://home/skin/"   
-    aPiPortailDir = scriptDir + "aPiPortail/"   
+    aPiPortalDir = scriptDir + "aPiPortal/"   
 else: 
     scriptDir = "Q:\\scripts\\"
     pluginDir = "Q:\\plugins\\"
     skinDir = "Q:\\skin\\"
-    aPiPortailDir = scriptDir + "aPiPortail\\"    
+    aPiPortalDir = scriptDir + "aPiPortal\\"    
 
 #############################################################################
 def Trace(string):
@@ -64,8 +64,8 @@ def get_system_platform():
 #retrieve the platform.
 #platform = get_system_platform()
 
-shutil.copyfile(RootDir + 'startup.plx', aPiPortailDir + 'startup.plx')
+shutil.copyfile(RootDir + 'startup.plx', aPiPortalDir + 'startup.plx')
 
-xbmc.executescript(aPiPortailDir + 'default.py')
+xbmc.executescript(aPiPortalDir + 'default.py')
 
 #xbmc.sleep(1000)

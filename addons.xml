@@ -30,7 +30,30 @@
     <platform>all</platform>
     <minversion>28764</minversion>
     <summary>Media Browser Addon for Kodi</summary>
-    <description>TubeList plugin to see your playlist on your media center.</description>
+    <description>Pour voir les playlists de Tubelist de pascal-mietlicki.fr sur votre TV.</description>
+    <website>http://www.pascal-mietlicki.fr/</website>
+    <source></source>
+    <email></email>
+  </extension>
+</addon>
+
+<addon id="script.apiportal"
+       name="aPiTV Portal"
+       version="1.0"
+       provider-name="aPiTV">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+  </requires>
+  <extension point="xbmc.python.script" library="default.py" >
+    <provides>executable video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup">
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <minversion>28764</minversion>
+    <summary>Media Browser Addon for Kodi</summary>
+    <description>TubeList plugin to see the playlists from pascal-mietlicki.fr on your media center.</description>
     <website>http://www.pascal-mietlicki.fr/</website>
     <source></source>
     <email></email>

@@ -6,5 +6,5 @@ player=default
 #
 type=playlist
 name=Accueil
-URL=http://apitv.ile.nc/accueil.txt
+URL=http://apitv.pascal-mietlicki.fr/accueil.txt
 #

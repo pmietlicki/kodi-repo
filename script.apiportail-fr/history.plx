@@ -5,20 +5,20 @@ type=playlist
 name=Pocoyo en espagnol
 thumb=http://i1.ytimg.com/i/0pHdbHRCREJJQhGSUDH61g/mq1.jpg?v=51b9b210
 icon=http://i1.ytimg.com/i/0pHdbHRCREJJQhGSUDH61g/mq1.jpg?v=51b9b210
-URL=http://apitv.ile.nc/proc/json2plx.php?url=http%3A%2F%2Fpipes.yahoo.com%2Fpipes%2Fpipe.run%3F_id%3D149f162770126abc24c2a2932fb25f0e%26_render%3Djson%26U1%3Dpocoyotv
+URL=http://apitv.pascal-mietlicki.fr/proc/json2plx.php?url=http%3A%2F%2Fpipes.yahoo.com%2Fpipes%2Fpipe.run%3F_id%3D149f162770126abc24c2a2932fb25f0e%26_render%3Djson%26U1%3Dpocoyotv
 #
 type=rss:video
 name=Top 100 musiques France
 thumb=http://limptinc.nl/files/2011/05/youtube-100-300x121.jpg
 icon=http://icons.iconarchive.com/icons/custom-icon-design/flag-2/32/France-Flag-icon.png
-URL=http://apitv.ile.nc/clips/fr.xml
+URL=http://apitv.pascal-mietlicki.fr/clips/fr.xml
 #
 type=rss:video
 name=En vogue - [COLOR=FF3DA0E3]Top 100 USA[/COLOR]
 thumb=http://limptinc.nl/files/2011/05/youtube-100-300x121.jpg
 icon=http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-11/24/new-icon.png
-URL=http://apitv.ile.nc/clips/us.xml
-processor=http://apitv.ile.nc/proc/youtube
+URL=http://apitv.pascal-mietlicki.fr/clips/us.xml
+processor=http://apitv.pascal-mietlicki.fr/proc/youtube
 #
 type=playlist
 name=En vogue - [COLOR=FF3DA0E3]Suricate[/COLOR]
@@ -46,7 +46,7 @@ name=Recherche
 thumb=http://icons.iconarchive.com/icons/gakuseisean/aire/256/Search-Images-icon.png
 icon=http://icons.iconarchive.com/icons/fasticon/line-free/16/find-icon.png
 background=http://www.navixtreme.com/images/backgrounds/bkg_search.jpg
-URL=http://apitv.ile.nc/recherche.txt
+URL=http://apitv.pascal-mietlicki.fr/recherche.txt
 #
 type=playlist
 name= Local - Nouvelle-Calédonie
@@ -54,7 +54,7 @@ description=Les informations calédoniennes, que faire ce week-end, les événem
 thumb=http://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Noum%C3%A9a_Phare_Am%C3%A9d%C3%A9e.JPG/800px-Noum%C3%A9a_Phare_Am%C3%A9d%C3%A9e.JPG
 icon=http://www.golftrotter.com/old/jpg/m_frnc.cagou.jpg
 background=http://scenery-wallpapers.com/wallpapers/vista_summer_sea_beach_wallpaper_by_booterboys-1440x900.jpg
-URL=http://apitv.ile.nc/local.txt
+URL=http://apitv.pascal-mietlicki.fr/local.txt
 #
 type=rss
 name=Actualités de gouv.nc
@@ -72,5 +72,5 @@ type=playlist
 name=Clips
 thumb=http://icons.iconarchive.com/icons/sirubico/movie-genre/256/Music-icon.png
 icon=http://icons.iconarchive.com/icons/sirubico/movie-genre/24/Music-2-icon.png
-URL=http://apitv.ile.nc/clips.txt
+URL=http://apitv.pascal-mietlicki.fr/clips.txt
 #
